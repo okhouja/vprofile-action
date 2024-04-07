@@ -15,12 +15,16 @@ spec:
         app: vpromq01
     spec:
       containers:
-      - name: vpromq01
-        image: rabbitmq
-        ports:
-        - name: vpromq01-port
-          containerPort: 15672
-        env: 
+       - name: vpromq01
+         image: rabbitmq
+         resources:
+           limits:
+             memory: "256 Mi"
+             cpu: "256m"
+         ports:
+         - name: vpromq01-port
+           containerPort: 15672
+         env:
          - name: RABBITMQ_DEFAULT_PASS
            valueFrom:
              secretKeyRef:
@@ -28,4 +32,3 @@ spec:
                key: rmq-pass
          - name: RABBITMQ_DEFAULT_USER
            value: "guest"
-
